@@ -1,5 +1,6 @@
 package com.imageApp.controller;
 
+import com.imageApp.controller.searchOptions.ImageSearchOptions;
 import com.imageApp.resource.ImageResource;
 import com.imageApp.service.ImageStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,11 @@ public class ImageStoreController {
     @GetMapping(value = "/getAll")
     public ResponseEntity<Page<ImageResource>> getAll(@PageableDefault(sort = {"id"}) Pageable pageable){
         return new ResponseEntity<>(imageStoreService.getAll(pageable), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/searchByName")
+    public ResponseEntity<Page<ImageResource>> getAllByName(@PageableDefault(sort = {"id"}) Pageable pageable, ImageSearchOptions options){
+        return new ResponseEntity<>(imageStoreService.getAllByName(options, pageable), HttpStatus.OK);
     }
 
     @GetMapping(value = "/get/{id}")
